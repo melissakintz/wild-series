@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>program id {{ id }}</h1>
+    <div>
+        <h2>{{ program.title }} - Categorie: {{ program.category.name }}</h2>
+        <img src="{{ program.poster }}" width="300" alt="{{ program.title }}">
+        <p> {{ program.summary }}</p>
+    </div>
 {% endblock %}
