@@ -5,5 +5,12 @@
         <h2>{{ program.title }} - Categorie: {{ program.category.name }}</h2>
         <img src="{{ program.poster }}" width="300" alt="{{ program.title }}">
         <p> {{ program.summary }}</p>
+
+        {% for season in program.seasons %}
+            <p>Saison {{ season.number }} - {{ season.year }}</p>
+            <p>{{ season.description }}</p>
+            <a href='{{ path("program_season_show", { programId: program.id,  seasonId: season.id }) }}'>Voir la saison</a>
+
+        {% endfor %}
     </div>
 {% endblock %}
