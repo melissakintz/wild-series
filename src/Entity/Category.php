@@ -21,6 +21,10 @@ class Category
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $name;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Program", mappedBy="category")
@@ -70,10 +74,7 @@ class Category
         return $this;
     }
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $name;
+
 
     /**
      * @return int|null
