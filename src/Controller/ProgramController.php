@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProgramController extends AbstractController
 {
     /**
-     * Show all rows from Program’s entity
+     * Show all rows from ProgramFixtures’s entity
      * @Route ("/", name="index")
      * @return Response
      */
