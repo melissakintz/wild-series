@@ -46,7 +46,7 @@ class ProgramController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()){
+        if ($form->isSubmitted() && $form->isValid()){
             //recup the entity manager
             $entityManager = $this->getDoctrine()->getManager();
             // persist anf flush : ajout dans la base

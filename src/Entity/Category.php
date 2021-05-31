@@ -6,10 +6,11 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Collection;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @Assert\EnableAutoMapping()
  */
 class Category
 {
@@ -22,6 +23,8 @@ class Category
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max="100")
      * @ORM\Column(type="string", length=100)
      */
     private $name;
