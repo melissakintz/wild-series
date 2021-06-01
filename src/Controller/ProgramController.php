@@ -2,6 +2,7 @@
 // src/Controller/ProgramController.php
 namespace App\Controller;
 
+use App\Entity\Actor;
 use App\Entity\Category;
 use App\Entity\Episode;
 use App\Entity\Program;
@@ -70,7 +71,7 @@ class ProgramController extends AbstractController
             $message = 'No program with id : '.$id.' found in program\'s table.';
             return $this->render('error404.html.twig', ['message' => $message]);
         }
-    //var_dump($program);die();
+
         return $this->render('program/show.html.twig', ['program' => $program]);
     }
 
