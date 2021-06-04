@@ -2,12 +2,9 @@
 // src/Controller/ProgramController.php
 namespace App\Controller;
 
-use App\Entity\Actor;
-use App\Entity\Category;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
-use App\Form\CategoryType;
 use App\Form\ProgramType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,7 +57,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * @param int $id
+     * @param Program $program
      * @return Response
      * @Route ("/{id}",  requirements={"id"="\d+"}, methods={"GET"}, name="show")
      */

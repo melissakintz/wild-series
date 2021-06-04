@@ -4,33 +4,41 @@ namespace App\DataFixtures;
 
 use App\Entity\Season;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
-class SeasonFixtures extends Fixture
+class SeasonFixtures extends Fixture implements DependentFixtureInterface
 {
-    const SEASONS = [
-        [1, "c'est une description", 2020]
-    ];
-
     public function load(ObjectManager $manager)
     {
-        foreach (self::SEASONS as $key => $seasons) {
-            $season = new Season();
-            $season->setNumber($seasons[0]);
-            $season->setDescription($seasons[1]);
-            $season->setYear($seasons[2]);
-            $season->setProgram(null);
+        $count = 0;
+        $faker = Factory::create();
 
-            $manager->persist($season);
+        for ($j = 0; $j<5; $j++){
+            for ($i = 0; $i< 10; $i++){
+                $season = new Season();
+                $season->setYear($faker->date('Y'));
+                $season->setNumber($i);
+                $season->setDescription($faker->text(255));
+
+                $season->setProgram($this->getReference('program_' . $j));
+                $manager->persist($season);
+
+                $this->addReference('season_' . $count, $season);
+                $count++;
+            }
         }
         $manager->flush();
+
+
     }
 
-    public function getDependencies(): array
+    public function getDependencies()
     {
         return [
-            SeasonFixtures::class,
-            CategoryFixtures::class,
+           ProgramFixtures::class
         ];
     }
 }

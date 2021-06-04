@@ -51,8 +51,9 @@ class Program
      */
     private $category;
 
+
     /**
-     * @ORM\OneToMany(targetEntity=Season::class, mappedBy="program_id")
+     * @ORM\OneToMany(targetEntity=Season::class, mappedBy="program")
      */
     private $seasons;
 
@@ -61,17 +62,27 @@ class Program
      */
     private $actors;
 
+    /**
+     * Program constructor.
+     */
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
         $this->actors = new ArrayCollection();
     }
 
+    /**
+     * @return string|null
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -79,11 +90,18 @@ class Program
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSummary(): ?string
     {
         return $this->summary;
     }
 
+    /**
+     * @param string $summary
+     * @return $this
+     */
     public function setSummary(string $summary): self
     {
         $this->summary = $summary;
@@ -91,11 +109,18 @@ class Program
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getPoster(): ?string
     {
         return $this->poster;
     }
 
+    /**
+     * @param string|null $poster
+     * @return $this
+     */
     public function setPoster(?string $poster): self
     {
         $this->poster = $poster;
@@ -103,44 +128,21 @@ class Program
         return $this;
     }
 
+    /**
+     * @return Category|null
+     */
     public function getCategory(): ?Category
     {
         return $this->category;
     }
 
+    /**
+     * @param Category|null $category
+     * @return $this
+     */
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Season[]
-     */
-    public function getSeasons(): Collection
-    {
-        return $this->seasons;
-    }
-
-    public function addSeason(Season $season): self
-    {
-        if (!$this->seasons->contains($season)) {
-            $this->seasons[] = $season;
-            $season->setProgramId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSeason(Season $season): self
-    {
-        if ($this->seasons->removeElement($season)) {
-            // set the owning side to null (unless already changed)
-            if ($season->getProgramId() === $this) {
-                $season->setProgramId(null);
-            }
-        }
 
         return $this;
     }
@@ -159,6 +161,37 @@ class Program
     public function setId($id): void
     {
         $this->id = $id;
+    }
+
+
+    /**
+     * @return Collection|Season[]
+     */
+    public function getSeasons(): Collection
+    {
+        return $this->seasons;
+    }
+
+    public function addSeason(Season $season): self
+    {
+        if (!$this->seasons->contains($season)) {
+            $this->seasons[] = $season;
+            $season->setProgram($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeason(Season $season): self
+    {
+        if ($this->seasons->removeElement($season)) {
+            // set the owning side to null (unless already changed)
+            if ($season->getProgram() === $this) {
+                $season->setProgram(null);
+            }
+        }
+
+        return $this;
     }
 
     /**

@@ -34,6 +34,7 @@ class Actor
         $this->program = new ArrayCollection();
     }
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,4 +75,5 @@ class Actor
 
         return $this;
     }
+
 }

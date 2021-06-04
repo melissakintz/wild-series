@@ -38,16 +38,26 @@ class Episode
      */
     private $season;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -55,11 +65,18 @@ class Episode
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getNumber(): ?int
     {
         return $this->number;
     }
 
+    /**
+     * @param int $number
+     * @return $this
+     */
     public function setNumber(int $number): self
     {
         $this->number = $number;
@@ -67,11 +84,18 @@ class Episode
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSynopsis(): ?string
     {
         return $this->synopsis;
     }
 
+    /**
+     * @param string $synopsis
+     * @return $this
+     */
     public function setSynopsis(string $synopsis): self
     {
         $this->synopsis = $synopsis;
@@ -79,11 +103,18 @@ class Episode
         return $this;
     }
 
+    /**
+     * @return Season|null
+     */
     public function getSeason(): ?Season
     {
         return $this->season;
     }
 
+    /**
+     * @param Season|null $season
+     * @return $this
+     */
     public function setSeason(?Season $season): self
     {
         $this->season = $season;
