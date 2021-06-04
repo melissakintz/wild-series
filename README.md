@@ -1,1 +1,1 @@
-![quete17.png](/assets/quete17.png)
+![public/assets/quete17.png](/assets/quete17.png)
