@@ -1,6 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Bienvenue !</h1>
+    <h1 class="text-gray-100">Bienvenue !</h1>
+    <div class="grid gap-2 grid-cols-2 md:grid-cols-6 place-items-center">
+        <div>
+            <h1>Catégories</h1>
+            <ul>
+                {% for category in categories %}
+                    <li class="list-disc"><a href="{{ path("category_show", { categoryName: category.name }) }}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div>
+            <h1>Programmes</h1>
+            <ul>
+                {% for program in programs %}
+                    <li class="list-disc"><a href='{{ path("program_show", { id: program.id }) }}'>{{ program.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+
     <img src="{{ asset('build/messenger.png') }}" alt="messenger"/>
 {% endblock %}

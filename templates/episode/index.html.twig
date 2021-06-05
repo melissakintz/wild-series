@@ -12,19 +12,21 @@
                 <th>Title</th>
                 <th>Number</th>
                 <th>Synopsis</th>
+                <th>Slug</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for episode in episodes %}
-            <tr>
+            <tr class="hover:bg-blue-300">
                 <td>{{ episode.id }}</td>
                 <td>{{ episode.title }}</td>
                 <td>{{ episode.number }}</td>
                 <td>{{ episode.synopsis }}</td>
+                <td>{{ episode.slug }}</td>
                 <td>
-                    <a href="{{ path('episode_show', {'id': episode.id}) }}">show</a>
-                    <a href="{{ path('episode_edit', {'id': episode.id}) }}">edit</a>
+                    <a class="link-light" href="{{ path('episode_show', {slug: episode.slug}) }}">show</a>
+                    <a class="link-dark" href="{{ path('episode_edit', {slug: episode.slug}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

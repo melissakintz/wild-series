@@ -3,12 +3,19 @@
 namespace App\DataFixtures;
 
 use App\Entity\Program;
+use App\Service\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
+    private $slugify;
+
+    public function __construct(Slugify  $slugifyService)
+    {
+        $this->slugify = $slugifyService;
+    }
     public const PROGRAMS = [
         ["Game of Thrones","Nine noble families fight for control over the lands of Westeros, while an ancient enemy returns after being dormant for millennia.","https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_SY264_CR8,0,178,264_AL_.jpg"],
         ["The Walking Dead","Sheriff Deputy Rick Grimes wakes up from a coma to learn the world is in ruins and must lead a group of survivors to stay alive.","https://m.media-amazon.com/images/M/MV5BMTc5ZmM0OTQtNDY4MS00ZjMyLTgwYzgtOGY0Y2VlMWFmNDU0XkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_SX178_AL_.jpg"],
@@ -25,8 +32,9 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setSummary($programs[1]);
             $program->setPoster($programs[2]);
             $program->setCategory($this->getReference('category_3'));
-
             $program->addActor($this->getReference('actor_2'));
+
+            $program->setSlug($this->slugify->generate($programs[0]));
 
             $manager->persist($program);
 

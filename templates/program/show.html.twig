@@ -2,8 +2,9 @@
 
 {% block body %}
     <div>
-        <h2>{{ program.title }} - Categorie: {{ program.category.name }}</h2>
-        <img src="{{ program.poster }}" width="300" alt="{{ program.title }}">
+            <h2>{{ program.title }} - Categorie: {{ program.category.name }}</h2>
+            <img src="{{ program.poster }}" width="300" alt="{{ program.title }}" >
+
         <p> {{ program.summary }}</p>
 
         {% for season in program.seasons %}

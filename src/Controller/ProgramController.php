@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
+use App\Service\Slugify;
 use App\Form\ProgramType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +38,7 @@ class ProgramController extends AbstractController
      * @return Response
      * @Route ("/new", name="new")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Slugify $slugify): Response
     {
         $program = new Program();
         $form = $this->createForm(ProgramType::class, $program);
@@ -47,19 +48,24 @@ class ProgramController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
             //recup the entity manager
             $entityManager = $this->getDoctrine()->getManager();
+
+            //genrate and assos slug
+            $slug = $slugify->generate($program->getTitle());
+            $program->setSlug($slug);
+
             // persist anf flush : ajout dans la base
             $entityManager->persist($program);
             $entityManager->flush();
 
-            return $this->redirectToRoute('program_index');        }
 
+            return $this->redirectToRoute('program_index');        }
         return $this->render('program/new.html.twig', ['form' => $form->createView()]);
     }
 
     /**
      * @param Program $program
      * @return Response
-     * @Route ("/{id}",  requirements={"id"="\d+"}, methods={"GET"}, name="show")
+     * @Route ("/{slug}", methods={"GET"}, name="show")
      */
     public function show(Program $program): Response
     {
