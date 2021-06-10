@@ -7,4 +7,18 @@
         Episode : {{ episode.number }} - {{ episode.title }}
         <p>"{{ episode.synopsis }}"</p>
     </div>
+    <div>
+        <h1>Commentaires</h1>
+        {% for comments in episode.comments %}
+           <h2>Auteur : {{ comments.author.email }}</h2>
+            <p>{{ comments.comment }}</p><br/><hr/>
+        {% endfor %}
+    </div>
+    {% if app.user %}
+        <p> Ajouter un commentaire</p>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type='submit' value='Add commentary'>
+        {{ form_end(form) }}
+    {% endif %}
 {% endblock %}

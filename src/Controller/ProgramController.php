@@ -2,9 +2,11 @@
 // src/Controller/ProgramController.php
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
+use App\Form\CommentType;
 use App\Service\Slugify;
 use App\Form\ProgramType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -102,9 +104,28 @@ class ProgramController extends AbstractController
      * @return Response
      * @Route ("/{program}/seasons/{season}/episodes/{episode}", name="episode_show")
      */
-    public function showEpisode(Program $program, Season $season, Episode $episode): Response
+    public function showEpisode(Program $program, Season $season, Episode $episode, Request $request): Response
     {
-        return $this->render('program/episode_show.html.twig', ['season' => $season, 'program' => $program, 'episode' => $episode]);
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //recup the entity manager
+            $entityManager = $this->getDoctrine()->getManager();
+
+            /** @var \App\Entity\User $author */
+            $author = $this->getUser();
+
+            $comment->setAuthor($author);
+            $comment->setEpisode($episode);
+            // persist anf flush : ajout dans la base
+            $entityManager->persist($comment);
+            $entityManager->flush();
+        }
+
+        return $this->render('program/episode_show.html.twig', ['season' => $season, 'program' => $program, 'episode' => $episode, 'form' => $form->createView()]);
 
     }
 }
