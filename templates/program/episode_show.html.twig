@@ -9,6 +9,7 @@
     </div>
     <div>
         <h1>Commentaires</h1>
+
         {% for comments in episode.comments %}
            <h2>Auteur : {{ comments.author.email }}</h2>
             <p>{{ comments.comment }}</p><br/><hr/>
