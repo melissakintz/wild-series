@@ -7,6 +7,8 @@ use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
 use App\Form\CommentType;
+use App\Form\SearchProgramFormType;
+use App\Repository\ProgramRepository;
 use App\Service\Slugify;
 use App\Form\ProgramType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,19 +30,31 @@ class ProgramController extends AbstractController
     /**
      * Show all rows from ProgramFixtures’s entity
      * @Route ("/", name="index")
+     * @param Request $request
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $programs = $this->getDoctrine()
-            ->getRepository(Program::class)
-            ->findAll();
+        $form = $this->createForm(SearchProgramFormType::class);
+        $form->handleRequest($request);
 
-        return $this->render('program/index.html.twig', ['programs' => $programs]);
+        if ($form->isSubmitted() && $form->isValid()){
+            $search = $form->getData()['search'];
+            $programs = $this->getDoctrine()->getRepository(Program::class)->findLikeName($search);
+        }else{
+            $programs = $this->getDoctrine()
+                ->getRepository(Program::class)
+                ->findAll();
+        }
+        return $this->render('program/index.html.twig', ['programs' => $programs, 'form' => $form->createView()]);
     }
 
     /**
+     * @param Request $request
+     * @param Slugify $slugify
+     * @param MailerInterface $mailer
      * @return Response
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      * @Route ("/new", name="new")
      */
     public function new(Request $request, Slugify $slugify, MailerInterface $mailer): Response

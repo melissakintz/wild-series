@@ -3,6 +3,10 @@
 {% block title %}All programs{% endblock %}
 
 {% block body %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type='submit' value='Search'>
+    {{ form_end(form) }}
     <h1>Toutes les séries: </h1>
     {% for program in programs %}
         <div>

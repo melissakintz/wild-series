@@ -19,32 +19,18 @@ class ProgramRepository extends ServiceEntityRepository
         parent::__construct($registry, Program::class);
     }
 
-    // /**
-    //  * @return ProgramFixtures[] Returns an array of ProgramFixtures objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findLikeName(string $search)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->join('p.actors', 'a')
+            ->where('p.title LIKE :name')
+            ->orWhere('a.name like :actorName')
+            ->setParameter('name', '%' . $search . '%')
+            ->setParameter('actorName', '%' . $search . '%' )
+            ->orderBy('p.title', 'ASC')
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?ProgramFixtures
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
