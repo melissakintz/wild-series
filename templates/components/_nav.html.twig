@@ -1,0 +1,30 @@
+<nav>
+        <div>
+            <a href="{{ path('program_index') }}">Programs</a>
+        </div>
+        <div>
+            <a href="{{ path('category_index') }}">Categories</a>
+        </div>
+
+        <div>
+            <a href="{{ path('episode_index') }}">Episodes Admin</a>
+        </div>
+
+        <div>
+            <a href="{{ path('actor_index') }}" >Actors</a>
+        </div>
+
+
+        {% if app.user %}
+            <div class="nav-right">
+                <a href="{{ path('app_logout') }}">Deconnexion</a>
+            </div>
+            <div class="nav-right">
+                <a href="{{ path('user_profil') }}">Compte</a>
+            </div>
+        {% else %}
+            <div class="nav-right">
+                <a href="{{ path('app_login') }}">Connexion</a>
+            </div>
+        {% endif %}
+</nav>

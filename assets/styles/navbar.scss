@@ -1,0 +1,18 @@
+nav{
+  display : flex;
+  justify-content: space-between;
+  font-variant: small-caps;
+  background-color: rgba(184, 193, 189, 0.45);
+  padding: 20px;
+}
+
+nav a {
+  list-style: none;
+  text-decoration: none;
+  color: black;
+}
+
+nav a:hover{
+  color: #787575;
+}
+

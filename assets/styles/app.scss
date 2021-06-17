@@ -1,8 +1,6 @@
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "navbar";
 
 // customize some Bootstrap variables
 $theme-colors: (
@@ -11,9 +9,27 @@ $theme-colors: (
 );
 
 body{
-  background-color: lightgrey;
+  background-color: #ffffff;
+}
+img{
+  width: 200px;
+}
+img:hover{
+  box-shadow: 2px 3px 10px black;
+}
+h2{
+  font-size: medium;
+}
+.wrapper{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 10px;
+  text-align: center;
 }
 
-img:hover{
-  width: 600px;
+form{
+  display: flex;
+  margin: 10px;
+  text-align: center;
 }

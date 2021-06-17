@@ -7,16 +7,19 @@
     {{ form_widget(form) }}
     <input type='submit' value='Search'>
     {{ form_end(form) }}
+
     <h1>Toutes les séries: </h1>
-    {% for program in programs %}
-        <div>
-            <h2>{{ loop.index }} /{{ program.title }} - Categorie: {{ program.category.name }}</h2>
-            <img src="{{ program.poster }}" width="300" alt="{{ program.title }}">
-            <p> {{ program.summary }}</p>
-            <a href='{{ path("program_show", { slug: program.slug }) }}'>Voir la fiche</a>
-        </div>
-    {% else %}
-        <p>Aucunes séries trouvées</p>
-    {% endfor %}
-    <a href="{{ path('app_index') }}">Retour à l'accueil</a>
+    <div class="wrapper">
+        {% for program in programs %}
+            <div class="child">
+                <h2>{{ loop.index }} /{{ program.title }} - Categorie: {{ program.category.name }}</h2>
+                <img src="{{ program.poster }}" alt="{{ program.title }}">
+                <p> {{ program.summary }}</p>
+                <a href='{{ path("program_show", { slug: program.slug }) }}'>Voir la fiche</a>
+            </div>
+        {% else %}
+            <p>Aucunes séries trouvées</p>
+        {% endfor %}
+    </div>
+
 {% endblock %}
