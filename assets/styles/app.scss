@@ -14,7 +14,7 @@ body{
 img{
   width: 200px;
 }
-img:hover{
+.wrapper img:hover{
   box-shadow: 2px 3px 10px black;
 }
 h2{
@@ -32,4 +32,14 @@ form{
   display: flex;
   margin: 10px;
   text-align: center;
+}
+
+.header{
+  margin: auto;
+  margin-top: 50px;
+  width: 70%;
+  text-align: center;
+  background-color: rgba(3, 58, 90, 0.44);
+  padding: 20px;
+  border-radius: 10px;
 }
