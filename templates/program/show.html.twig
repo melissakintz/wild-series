@@ -6,6 +6,9 @@
             <img src="{{ program.poster }}" width="300" alt="{{ program.title }}" >
 
         <p> {{ program.summary }}</p>
+        {% if is_granted("ROLE_ADMIN") %}
+           <a href="{{ path('program_edit', {slug : program.slug}) }}">Edit </a>
+        {% endif %}
 
         {% for season in program.seasons %}
             <p>Saison {{ season.number }} - {{ season.year }}</p>

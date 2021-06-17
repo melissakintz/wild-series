@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class ProgramController
@@ -56,6 +57,7 @@ class ProgramController extends AbstractController
             //genrate and assos slug
             $slug = $slugify->generate($program->getTitle());
             $program->setSlug($slug);
+            $program->setOwner($this->getUser());
 
             // persist anf flush : ajout dans la base
             $entityManager->persist($program);
@@ -101,6 +103,7 @@ class ProgramController extends AbstractController
      * @param Program $program
      * @param Season $season
      * @param Episode $episode
+     * @param Request $request
      * @return Response
      * @Route ("/{program}/seasons/{season}/episodes/{episode}", name="episode_show")
      */
@@ -127,5 +130,31 @@ class ProgramController extends AbstractController
 
         return $this->render('program/episode_show.html.twig', ['season' => $season, 'program' => $program, 'episode' => $episode, 'form' => $form->createView()]);
 
+    }
+
+    /**
+     * @param Program $program
+     * @return Response
+     * @Route("/{slug}/edit", name="edit")
+     */
+    public function edit(Program $program, Request $request): Response
+    {
+        if (!($this->getUser() == $program->getOwner())) {
+                        // If not the owner, throws a 403 Access Denied exception
+            throw new AccessDeniedException('Only the owner can edit the program!');
+        }
+
+         $form = $this->createForm(ProgramType::class, $program);
+         $form->handleRequest($request);
+
+         if ($form->isSubmitted() && $form->isValid()){
+             $this->getDoctrine()->getManager()->flush();
+             return $this->redirectToRoute('program_index');
+         }
+
+            return $this->render('program/edit.html.twig', [
+                'program' => $program,
+                'form' => $form->createView(),
+            ]);
     }
 }
