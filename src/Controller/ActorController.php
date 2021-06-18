@@ -46,6 +46,7 @@ class ActorController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->flush();
+        $this->addFlash('success', 'The actor has been added to ' . $program->getTitle());
 
         return $this->render("/actor/show.html.twig", ['actor' => $actor]);
     }

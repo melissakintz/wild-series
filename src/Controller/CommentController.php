@@ -64,6 +64,7 @@ class CommentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
             $manager = $this->getDoctrine()->getManager();
             $manager->flush();
+            $this->addFlash('success', 'The comment has been edited');
 
             return $this->redirectToRoute('comment_index');
         }
@@ -91,6 +92,8 @@ class CommentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($comment);
             $entityManager->flush();
+            $this->addFlash('danger', 'The comment has been deleted');
+
         }
 
         return $this->redirectToRoute('comment_index');

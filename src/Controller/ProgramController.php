@@ -8,7 +8,6 @@ use App\Entity\Program;
 use App\Entity\Season;
 use App\Form\CommentType;
 use App\Form\SearchProgramFormType;
-use App\Repository\ProgramRepository;
 use App\Service\Slugify;
 use App\Form\ProgramType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -77,6 +76,8 @@ class ProgramController extends AbstractController
             $entityManager->persist($program);
             $entityManager->flush();
 
+            $this->addFlash('success', 'The new program has been created');
+
             $email = (new Email())
                 ->from($this->getParameter('mailer_from'))
                 ->to($this->getParameter('mailer_from'))
@@ -140,6 +141,8 @@ class ProgramController extends AbstractController
             // persist anf flush : ajout dans la base
             $entityManager->persist($comment);
             $entityManager->flush();
+            $this->addFlash('success', 'The commentary has been created');
+
         }
 
         return $this->render('program/episode_show.html.twig', ['season' => $season, 'program' => $program, 'episode' => $episode, 'form' => $form->createView()]);
@@ -163,6 +166,7 @@ class ProgramController extends AbstractController
 
          if ($form->isSubmitted() && $form->isValid()){
              $this->getDoctrine()->getManager()->flush();
+             $this->addFlash('success', 'The program has been edited');
              return $this->redirectToRoute('program_index');
          }
 
