@@ -17,9 +17,7 @@ img{
 .wrapper img:hover{
   box-shadow: 2px 3px 10px black;
 }
-h2{
-  font-size: medium;
-}
+
 .wrapper{
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -42,4 +40,19 @@ form{
   background-color: rgba(3, 58, 90, 0.44);
   padding: 20px;
   border-radius: 10px;
+}
+
+tbody tr:hover{
+  background-color: rgba(220, 220, 220, 0.32);
+}
+
+h4{
+  font-size: small;
+}
+
+h1{
+  text-align: center;
+}
+h2{
+  font-size: x-large;
 }

@@ -2,7 +2,8 @@
 
 {% block body %}
     <div>
-            <h2>{{ program.title }} - Categorie: {{ program.category.name }}</h2>
+        <h2>{{ program.title }}</h2>
+        <h4>Categorie: {{ program.category.name }}</h4>
             <img src="{{ program.poster }}" width="300" alt="{{ program.title }}" >
 
         <p> {{ program.summary }}</p>

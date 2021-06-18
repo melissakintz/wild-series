@@ -12,7 +12,8 @@
     <div class="wrapper">
         {% for program in programs %}
             <div class="child">
-                <h2>{{ loop.index }} /{{ program.title }} - Categorie: {{ program.category.name }}</h2>
+                <h2>{{ program.title }} </h2>
+                    <h4>Categorie: {{ program.category.name }}</h4>
                 <img src="{{ program.poster }}" alt="{{ program.title }}">
                 <p> {{ program.summary }}</p>
                 <a href='{{ path("program_show", { slug: program.slug }) }}'>Voir la fiche</a>
