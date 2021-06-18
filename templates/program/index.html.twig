@@ -14,9 +14,13 @@
     <div class="wrapper">
         {% for program in programs %}
             <div class="child">
-                <h2>{{ program.title }} </h2>
+                <h2>{{ program.title }}
+                    {%  if app.user %}
+                        <a href="{{ path('program_watchlist', {program: program.id}) }}"><i class="bi {{ app.user.isInWatchlist(program) ? 'bi-heart-fill' : 'bi-heart' }}"></i></a>
+                    {% endif %}</h2>
                 <h4>Categorie: {{ program.category.name }}</h4>
                 <a href='{{ path("program_show", { slug: program.slug }) }}'><img src="{{ program.poster }}" alt="{{ program.title }}"></a>
+
                 <p> {{ program.summary }}</p>
                 <a href='{{ path("program_show", { slug: program.slug }) }}'>Voir la fiche</a>
             </div>

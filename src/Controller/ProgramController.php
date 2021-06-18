@@ -10,6 +10,8 @@ use App\Form\CommentType;
 use App\Form\SearchProgramFormType;
 use App\Service\Slugify;
 use App\Form\ProgramType;
+use Doctrine\ORM\EntityManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -175,4 +177,25 @@ class ProgramController extends AbstractController
                 'form' => $form->createView(),
             ]);
     }
+
+    /**
+     * @param Program $program
+     * @return Response
+     * @Route("/{program}/watchlist", name="watchlist", methods={"POST", "GET"})
+     */
+    public function addToWatchlist(Program $program): Response
+    {
+        if ($this->getUser()->isInWatchlist($program)){
+            $this->getUser()->removeWatchlist($program);
+        }else{
+            $this->getUser()->addWatchlist($program);
+        }
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->flush();
+
+        return $this->redirectToRoute('program_index');
+    }
+
+
 }
