@@ -11,9 +11,11 @@ $theme-colors: (
 body{
   background-color: #ffffff;
 }
+
 img{
   width: 200px;
 }
+/*index program*/
 .wrapper img:hover{
   box-shadow: 2px 3px 10px black;
 }
@@ -57,3 +59,41 @@ h2{
   font-size: x-large;
   margin: 20px;
 }
+
+/*show program*/
+#program{
+  text-align: center;
+  margin-bottom: 90px;
+}
+
+#program img:hover{
+  box-shadow: 2px 3px 10px black;
+}
+
+
+#seasons table{
+  text-align: center;
+  border-spacing: 10px;
+  margin: 20px;
+}
+
+#seasons td{
+  min-width: 10vw;
+  border: black 1px solid;
+  padding: 10px;
+}
+
+/*actors*/
+.parent{
+  display: flex;
+}
+
+.parent h1{
+  text-align: center;
+}
+
+.parent a{
+  text-decoration: none;
+  color: black;
+}
+

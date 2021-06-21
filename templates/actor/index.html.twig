@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <ul>
+    <div class="parent">
         {% for actor in actors %}
-            <li> {{ actor.name }} <a href="{{ path("actor_show", {id: actor.id}) }}">Voir</a>
+            <div class="back">
+                <a href="{{ path("actor_show", {id: actor.id}) }}"><h1> {{ actor.name }} </h1></a>
                 {% for program in programs %}
-                    <br/>
-                    <a href="{{ path("actor_addProgram", {actor: actor.id, program: program.id}) }}">ajouter à  <strong>{{ program.title }}</strong></a>
+                    <a href="{{ path("actor_addProgram", {actor: actor.id, program: program.id}) }}"> <i id="plus" class="bi bi-patch-plus"> </i> {{ program.title }}</a><br/>
                 {% endfor %}
-            </li>
 
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 
 
 {% endblock %}

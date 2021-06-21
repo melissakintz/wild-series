@@ -1,26 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div>
-        <h2>{{ program.title }}</h2>
+    <div id="program">
+        <h2>
+            {{ program.title }}
+            {%  if app.user %}
+                <a href="{{ path('program_watchlist', {program: program.id}) }}" id="watchlist"><i class="bi {{ app.user.isInWatchlist(program) ? 'bi-heart-fill' : 'bi-heart' }}"></i></a>
+            {% endif %}
+        </h2>
         <h4>Categorie: {{ program.category.name }}</h4>
-        {%  if app.user %}
-            <a href="{{ path('program_watchlist', {program: program.id}) }}" id="watchlist"><i class="bi {{ app.user.isInWatchlist(program) ? 'bi-heart-fill' : 'bi-heart' }}"></i></a>
-        {% endif %}
-
-        <img src="{{ program.poster }}" width="300" alt="{{ program.title }}" >
+        <div><img src="{{ program.poster }}" alt="{{ program.title }}" ></div>
 
         <p> {{ program.summary }}</p>
         {% if is_granted("ROLE_ADMIN") %}
            <a href="{{ path('program_edit', {slug : program.slug}) }}">Edit </a>
         {% endif %}
+    </div>
 
-        {% for season in program.seasons %}
-            <p>Saison {{ season.number }} - {{ season.year }}</p>
-            <p>{{ season.description }}</p>
-            <a href='{{ path("program_season_show", { program: program.id,  season: season.id }) }}'>Voir la saison</a>
-        {% endfor %}
-        <br/>
+    <div id="seasons">
+        <table>
+            <thead>
+                <tr>
+                    <th>Season number</th>
+                    <th>Year</th>
+                    <th>Description</th>
+                    <th>Links</th>
+                </tr>
+            </thead>
+            {% for season in program.seasons %}
+                <tbody>
+                    <tr>
+                        <td>Saison {{ season.number }}</td>
+                        <td>{{ season.year }}</td>
+                        <td>{{ season.description }}</td>
+                        <td><a href='{{ path("program_season_show", { program: program.id,  season: season.id }) }}'>Voir la saison</a></td>
+                    </tr>
+                </tbody>
+
+            {% endfor %}
+        </table>
+    </div>
+
         <strong>Acteurs :</strong>
         <ul>
                 {% for actor in program.actors %}
@@ -29,5 +49,5 @@
                         <li>Aucun acteur pour cette série</li>
                     {% endfor %}
             </ul>
-    </div>
+
 {% endblock %}
