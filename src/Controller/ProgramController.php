@@ -194,8 +194,6 @@ class ProgramController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $manager->flush();
 
-        return $this->redirectToRoute('program_index');
+        return $this->json(['isInWatchlist' => $this->getUser()->isInWatchlist($program)]);
     }
-
-
 }

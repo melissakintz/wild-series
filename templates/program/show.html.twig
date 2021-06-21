@@ -4,7 +4,11 @@
     <div>
         <h2>{{ program.title }}</h2>
         <h4>Categorie: {{ program.category.name }}</h4>
-            <img src="{{ program.poster }}" width="300" alt="{{ program.title }}" >
+        {%  if app.user %}
+            <a href="{{ path('program_watchlist', {program: program.id}) }}" id="watchlist"><i class="bi {{ app.user.isInWatchlist(program) ? 'bi-heart-fill' : 'bi-heart' }}"></i></a>
+        {% endif %}
+
+        <img src="{{ program.poster }}" width="300" alt="{{ program.title }}" >
 
         <p> {{ program.summary }}</p>
         {% if is_granted("ROLE_ADMIN") %}
