@@ -6,7 +6,7 @@
             <div class="back">
                 <a href="{{ path("actor_show", {id: actor.id}) }}"><h1> {{ actor.name }} </h1></a>
                 {% for program in programs %}
-                    <a href="{{ path("actor_addProgram", {actor: actor.id, program: program.id}) }}"> <i id="plus" class="bi bi-patch-plus"> </i> {{ program.title }}</a><br/>
+                    <a href="{{ path("actor_addProgram", {actor: actor.id, program: program.id}) }}" id="actor"> <i id="plus" class="bi bi-patch-plus"> </i> {{ program.title }}</a><br/>
                 {% endfor %}
 
             </div>

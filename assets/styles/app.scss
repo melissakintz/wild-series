@@ -14,6 +14,7 @@ body{
 
 img{
   width: 200px;
+  border-radius: 20px;
 }
 /*index program*/
 .wrapper img:hover{
@@ -71,13 +72,13 @@ h2{
 }
 
 
-#seasons table{
+#table table{
   text-align: center;
   border-spacing: 10px;
   margin: 20px;
 }
 
-#seasons td{
+#table td{
   min-width: 10vw;
   border: black 1px solid;
   padding: 10px;
@@ -97,3 +98,6 @@ h2{
   color: black;
 }
 
+#actor:hover, #plus:hover{
+  color: #a3a0a0;
+}

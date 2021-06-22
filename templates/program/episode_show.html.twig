@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div>
+    <div id="program">
         <img src="{{ program.poster }}" width="100" alt="{{ program.title }}">
         <p>Saison {{ season.number }} de {{ program.title }}- {{ season.year }}</p>
         Episode : {{ episode.number }} - {{ episode.title }}

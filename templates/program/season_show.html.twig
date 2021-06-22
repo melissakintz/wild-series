@@ -5,15 +5,30 @@
         <img src="{{ program.poster }}" width="100" alt="{{ program.title }}">
         <p>Saison {{ season.number }} de {{ program.title }}- {{ season.year }}</p>
         <p>"{{ season.description }}"</p>
+    </div>
 
-        <ul>
+    <div id="table">
+        <table>
+            <thead>
+            <tr>
+                <th>Number</th>
+                <th>Title</th>
+                <th>Links</th>
+            </tr>
+            </thead>
             {%  for episode in season.episodes %}
-                <li>Episode : {{ episode.number }} - {{ episode.title }}</li>
-                <a href='{{ path("program_episode_show", { program: program.id,  season: season.id, episode : episode.id }) }}'>Voir l'épisode</a>
-            {% else %}
-                Pas d'épisodes
+                <tbody>
+                <tr>
+                    <td>Episode {{ episode.number }}</td>
+                    <td>{{ episode.title }}</td>
+                    <td><a href='{{ path("program_episode_show", { program: program.id,  season: season.id, episode : episode.id }) }}'>Voir l'épisode</a></td>
+                </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">Pas d'épisodes</td>
+                    </tr>
+                </tbody>
             {% endfor %}
-        </ul>
-
+        </table>
     </div>
 {% endblock %}
