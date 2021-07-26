@@ -11,7 +11,7 @@
         </div>
 
         <div>
-            <a href="{{ path('actor_index') }}" >Actors</a>
+            <a href="{{ path('actor_index') }}" >{{ 'actors'|trans }}</a>
         </div>
 
         {% if app.user %}
@@ -19,8 +19,8 @@
                 <a href="{{ path('app_logout') }}">{{ 'account.logout'|trans }}</a>
             </div>
             <div class="nav-right">
-                <a href="{{ path('user_profil') }}">Compte</a>
-            </div>w
+                <a href="{{ path('user_profil') }}">{{ 'account'|trans }}</a>
+            </div>
         {% else %}
             <div class="nav-right">
                 <a href="{{ path('app_login') }}">{{ 'account.login'|trans }}</a>

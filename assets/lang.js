@@ -1,8 +1,11 @@
 let lang = document.getElementById('lang');
 lang.addEventListener('change', function() {
+    let href = window.location.pathname;
     if(this.value === 'en'){
-        window.location.href = '/en/programs/the-walking-dead';
+        let path = href.replace('fr', 'en');
+        window.location.href = path;
     }else if(this.value === 'fr'){
-        window.location.href = '/fr/programs/the-walking-dead';
+        let path = href.replace('en', 'fr');
+        window.location.href = path;
     }
 })
