@@ -11,13 +11,17 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import './styles/app.scss';
 import './watchlist';
 
-// start the Stimulus application
 
-const $ = require('jquery');
+// start the Stimulus application
+import $ from 'jquery';
+
+window.jQuery = $;
+window.$ = $;
+
 // this "modifies" the jquery module: adding behavior to it
 // the bootstrap module doesn't export/return anything
 require('bootstrap');
-
+import './lang'
 // or you can include specific pieces
 // require('bootstrap/js/dist/tooltip');
 //require('bootstrap/js/dist/popover');

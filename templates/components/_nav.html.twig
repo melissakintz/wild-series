@@ -14,17 +14,30 @@
             <a href="{{ path('actor_index') }}" >Actors</a>
         </div>
 
-
         {% if app.user %}
             <div class="nav-right">
-                <a href="{{ path('app_logout') }}">Deconnexion</a>
+                <a href="{{ path('app_logout') }}">{{ 'account.logout'|trans }}</a>
             </div>
             <div class="nav-right">
                 <a href="{{ path('user_profil') }}">Compte</a>
-            </div>
+            </div>w
         {% else %}
             <div class="nav-right">
-                <a href="{{ path('app_login') }}">Connexion</a>
+                <a href="{{ path('app_login') }}">{{ 'account.login'|trans }}</a>
             </div>
         {% endif %}
+
+    <div>
+        <select name="lang" id="lang">
+            {% if app.request.locale is same as 'en'%}
+                <option value="en" selected>en</option>
+                <option value="fr">fr</option>
+            {% elseif app.request.locale is same as 'fr' %}
+                <option value="fr" selected>fr</option>
+                <option value="en">en</option>
+            {% endif %}
+
+        </select>
+    </div>
 </nav>
+
