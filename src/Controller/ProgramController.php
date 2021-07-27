@@ -153,14 +153,15 @@ class ProgramController extends AbstractController
 
     /**
      * @param Program $program
+     * @param Request $request
      * @return Response
      * @Route("/{slug}/edit", name="edit")
      */
     public function edit(Program $program, Request $request): Response
     {
-        if (!($this->getUser() == $program->getOwner())) {
+        if (!in_array("ROLE_ADMIN", $this->getUser()->getRoles()) && !($this->getUser() == $program->getOwner())) {
                         // If not the owner, throws a 403 Access Denied exception
-            throw new AccessDeniedException('Only the owner can edit the program!');
+            throw new AccessDeniedException('Only the owner or admin can edit the program!');
         }
 
          $form = $this->createForm(ProgramType::class, $program);

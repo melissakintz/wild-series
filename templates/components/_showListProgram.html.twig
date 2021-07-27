@@ -1,6 +1,6 @@
 <h2>{{ program.title }}</h2>
 <h4>Categorie: {{ program.category.name }}</h4>
-<a href='{{ path("program_show", { slug: program.slug }) }}'><img src="{{ program.poster }}" alt="{{ program.title }}"></a>
+<a href='{{ path("program_show", { slug: program.slug }) }}'><img src="{{ asset('/uploads/'~program.poster) }}" alt="{{ program.title }}"></a>
 
 <p> {{ program.summary }}</p>
 <a href='{{ path("program_show", { slug: program.slug }) }}'>Voir la fiche</a>

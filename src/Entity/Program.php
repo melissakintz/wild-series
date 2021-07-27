@@ -3,15 +3,19 @@
 namespace App\Entity;
 
 use App\Repository\ProgramRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=ProgramRepository::class)
  * @UniqueEntity("title")
+ * @Vich\Uploadable
  */
 class Program
 {
@@ -77,6 +81,24 @@ class Program
      */
     private $viewers;
 
+    //On va créer un nouvel attribut à notre entité, qui ne sera pas lié à une colonne
+     // Tu peux d’ailleurs voir que l’annotation ORM column n’est pas spécifiée car
+   //On ne rajoute pas de données de type file en bdd
+     /**
+      * @Vich\UploadableField(mapping="poster_file", fileNameProperty="poster")
+      * @Assert\File(
+      *     maxSize = "1M",
+      *     mimeTypes = {"image/jpeg", "image/png", "image/webp"},
+      * )
+      * @var File
+      */
+     private $posterFile;
+
+     /**
+      * @ORM\Column(type="datetime")
+      */
+     private $updatedAt;
+
     /**
      * Program constructor.
      */
@@ -86,6 +108,27 @@ class Program
         $this->actors = new ArrayCollection();
         $this->viewers = new ArrayCollection();
     }
+
+    /**
+     * @return File
+     */
+    public function getPosterFile(): ?File
+    {
+        return $this->posterFile;
+    }
+
+    /**
+     * @param File|null $posterFile
+     * @return Program
+     */
+    public function setPosterFile(File $posterFile = null): void
+    {
+        $this->posterFile = $posterFile;
+            if ($posterFile) {
+              $this->updatedAt = new DateTime('now');
+        }
+    }
+
 
     /**
      * @return string|null
@@ -284,6 +327,18 @@ class Program
         if ($this->viewers->removeElement($viewer)) {
             $viewer->removeWatchlist($this);
         }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

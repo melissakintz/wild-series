@@ -26,6 +26,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
+        $date = new \DateTime('now');
         foreach (self::PROGRAMS as $key => $programs) {
             $program = new Program();
             $program->setTitle($programs[0]);
@@ -34,6 +35,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setCategory($this->getReference('category_3'));
             $program->addActor($this->getReference('actor_2'));
             $program->setOwner($this->getReference('user_contributor'));
+            $program->setUpdatedAt($date);
 
             $program->setSlug($this->slugify->generate($programs[0]));
 

@@ -2,21 +2,11 @@
 
 {% block body %}
     <div id="program">
-        <h2>
-            {{ program.title }}
-            {%  if app.user %}
-                <a href="{{ path('program_watchlist', {program: program.id}) }}" id="watchlist"><i class="bi {{ app.user.isInWatchlist(program) ? 'bi-heart-fill' : 'bi-heart' }}"></i></a>
-            {% endif %}
-        </h2>
-        <h4>Categorie: {{ program.category.name }}</h4>
-        <div><img src="{{ program.poster }}" alt="{{ program.title }}" ></div>
-
-        <p> {{ program.summary }}</p>
+            {% include ('./components/_showListProgram.html.twig') %}
         {% if is_granted("ROLE_ADMIN") %}
            <a href="{{ path('program_edit', {slug : program.slug}) }}">Edit </a>
         {% endif %}
     </div>
-
     <div id="table">
         <table>
             <thead>

@@ -21,7 +21,14 @@ nav a:hover{
 }
 
 .dropdown-content{
+  background-color: #b3adad;
+  padding: 4px;
   position: absolute;
   z-index: 1;
+}
+
+.dropdown-content li {
+  list-style: none;
+  text-align: center;
 }
 
