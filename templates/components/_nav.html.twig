@@ -2,8 +2,15 @@
         <div>
             <a href="{{ path('program_index') }}">Programs</a>
         </div>
-        <div>
-            <a href="{{ path('category_index') }}">Categories</a>
+
+        <div x-data="{ open: false }" class="dropdown">
+            <button x-on:click="open = ! open">Categories</button>
+
+            <div x-show="open" class="dropdow">
+                <ul class="dropdown-content">
+                    {{ render(controller('App\\Controller\\DefaultController::navbarTop')) }}
+                </ul>
+            </div>
         </div>
 
         <div>
@@ -13,6 +20,8 @@
         <div>
             <a href="{{ path('actor_index') }}" >{{ 'actors'|trans }}</a>
         </div>
+
+
 
         {% if app.user %}
             <div class="nav-right">

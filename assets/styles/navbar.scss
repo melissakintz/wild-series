@@ -16,3 +16,12 @@ nav a:hover{
   color: #787575;
 }
 
+.dropdown{
+  position: relative;
+}
+
+.dropdown-content{
+  position: absolute;
+  z-index: 1;
+}
+

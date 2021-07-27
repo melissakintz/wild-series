@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Program;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,4 +35,11 @@ class DefaultController extends AbstractController
         return $this->json(['teest' => $value]);
         //return $this->redirectToRoute("app_index");
     }
+
+    public function navbarTop(CategoryRepository $categoryRepository): Response
+{
+   return $this->render('components/navbartop.html.twig', [
+      'categories' => $categoryRepository->findBy([], ['id' => 'DESC'])
+   ]);
+}
 }
