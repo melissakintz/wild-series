@@ -1,10 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div>
-        <img src="{{ program.poster }}" width="100" alt="{{ program.title }}">
-        <p>Saison {{ season.number }} de {{ program.title }}- {{ season.year }}</p>
-        <p>"{{ season.description }}"</p>
+    <div id="program">
+        {% include ('./components/_showListProgram.html.twig') %}
     </div>
 
     <div id="table">
